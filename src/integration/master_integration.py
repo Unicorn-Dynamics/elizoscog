@@ -296,6 +296,45 @@ class HybridCognitiveFinancialFramework:
         # Test full roundtrip: ElizaOS → OpenCog → GnuCash → ElizaOS
         await self._test_full_roundtrip_communication()
     
+    async def _test_full_roundtrip_communication(self):
+        """Test full roundtrip communication across all systems"""
+        try:
+            # Start with ElizaOS query
+            elizaos_query = {
+                'source': 'elizaos',
+                'target': 'opencog',
+                'data': {
+                    'query': 'analyze_spending_patterns', 
+                    'user_id': 'test_user'
+                }
+            }
+            
+            # Route to OpenCog
+            opencog_response = await self._route_elizaos_to_opencog(
+                elizaos_query
+            )
+            
+            # OpenCog processes and routes to GnuCash
+            gnucash_query = {
+                'source': 'opencog',
+                'target': 'gnucash',
+                'data': opencog_response.get('data', {})
+            }
+            gnucash_response = await self._route_opencog_to_gnucash(
+                gnucash_query
+            )
+            
+            # Route back to ElizaOS
+            final_response = await self._route_gnucash_to_elizaos(
+                gnucash_response
+            )
+            
+            status = final_response.get('status', 'success')
+            logger.info(f"    Full roundtrip completed: {status}")
+            
+        except Exception as e:
+            logger.warning(f"    Roundtrip test failed: {e}")
+    
     async def _test_cognitive_financial_workflows(self):
         """Test end-to-end cognitive financial workflows"""
         logger.info("  - Testing cognitive financial workflows...")
@@ -509,8 +548,6 @@ class HybridCognitiveFinancialFramework:
             actions.append('review_investment_allocation')
         
         return actions if actions else ['general_review']
-
-    # ...existing code...
     
     def get_system_status(self) -> Dict:
         """Get current system status"""
