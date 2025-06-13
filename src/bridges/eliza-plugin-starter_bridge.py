@@ -20,7 +20,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-class Eliza-Plugin-StarterBridge:
+class ElizaPluginStarterBridge:
     """Bridge for eliza-plugin-starter cross-ecosystem integration"""
     
     def __init__(self, config: Optional[Dict] = None):
@@ -171,14 +171,14 @@ class Eliza-Plugin-StarterBridge:
         logger.info(f"Shutting down {self.name} bridge")
         self.initialized = False
 
-class Eliza-Plugin-StarterIntegrationFramework:
+class ElizaPluginStarterIntegrationFramework:
     """Framework for managing eliza-plugin-starter integrations"""
     
     def __init__(self):
         self.bridges = {}
         self.active_sessions = {}
         
-    async def register_bridge(self, bridge: Eliza-Plugin-StarterBridge) -> bool:
+    async def register_bridge(self, bridge: ElizaPluginStarterBridge) -> bool:
         """Register a new bridge"""
         try:
             await bridge.initialize()

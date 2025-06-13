@@ -20,7 +20,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-class Link-GrammarBridge:
+class LinkGrammarBridge:
     """Bridge for link-grammar cross-ecosystem integration"""
     
     def __init__(self, config: Optional[Dict] = None):
@@ -171,14 +171,14 @@ class Link-GrammarBridge:
         logger.info(f"Shutting down {self.name} bridge")
         self.initialized = False
 
-class Link-GrammarIntegrationFramework:
+class LinkGrammarIntegrationFramework:
     """Framework for managing link-grammar integrations"""
     
     def __init__(self):
         self.bridges = {}
         self.active_sessions = {}
         
-    async def register_bridge(self, bridge: Link-GrammarBridge) -> bool:
+    async def register_bridge(self, bridge: LinkGrammarBridge) -> bool:
         """Register a new bridge"""
         try:
             await bridge.initialize()
