@@ -533,9 +533,14 @@ class SchemeCognitiveGrammarService:
     
     def get_atomic_vocabulary(self) -> Dict[str, Dict[str, Any]]:
         """Get the atomic vocabulary mapping"""
-        return {
-            key: asdict(entry) for key, entry in self.atomic_vocabulary.items()
-        }
+        result = {}
+        for key, entry in self.atomic_vocabulary.items():
+            entry_dict = asdict(entry)
+            # Convert enums to their string values for serialization
+            entry_dict["eliza_primitive"] = entry_dict["eliza_primitive"].value
+            entry_dict["atomspace_pattern"] = entry_dict["atomspace_pattern"].value
+            result[key] = entry_dict
+        return result
     
     def get_performance_stats(self) -> Dict[str, Any]:
         """Get translation performance statistics"""
