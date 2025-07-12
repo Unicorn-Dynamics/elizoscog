@@ -40,12 +40,23 @@ class HybridCognitiveFinancialFramework:
         self.gnucash_access = None
         self.pattern_analyzer = None
         
-        # Cognitive agents (Phase 2 preview)
+        # Cognitive agents (Phase 2)
         self.cognitive_agents = {}
+        
+        # Phase 4 & 5 components
+        self.performance_profiler = None
+        self.caching_strategy = None
+        self.monitoring_system = None
+        self.financial_advisor = None
+        self.market_analysis_engine = None
         
         # Integration status
         self.integration_status = {
             'phase1_foundation': 'pending',
+            'phase2_core_integration': 'pending',
+            'phase3_advanced_features': 'pending',
+            'phase4_optimization': 'pending',
+            'phase5_advanced_applications': 'pending',
             'elizaos_opencog': 'pending',
             'opencog_gnucash': 'pending', 
             'elizaos_gnucash': 'pending',
@@ -63,16 +74,22 @@ class HybridCognitiveFinancialFramework:
             # Phase 1: Initialize foundation infrastructure
             await self._initialize_phase1_foundation()
             
-            # Phase 2 Preview: Initialize core integration bridges
+            # Phase 2: Initialize core integration bridges
             await self._initialize_core_integration_bridges()
             
-            # Phase 2 Preview: Initialize cognitive financial agents
+            # Phase 3: Initialize cognitive financial agents
             await self._initialize_cognitive_financial_agents()
+            
+            # Phase 4: Initialize optimization and scaling
+            await self._initialize_phase4_optimization()
+            
+            # Phase 5: Initialize advanced applications
+            await self._initialize_phase5_advanced_applications()
             
             # Validate full system integration
             await self._validate_system_integration()
             
-            logger.info("✅ Hybrid framework initialized successfully")
+            logger.info("✅ Complete hybrid framework initialized successfully - All Phases 1-5")
             return True
             
         except Exception as e:
@@ -118,6 +135,44 @@ class HybridCognitiveFinancialFramework:
         
         self.integration_status['phase1_foundation'] = 'active'
         logger.info("✅ Phase 1 foundation infrastructure initialized")
+    
+    async def _initialize_phase4_optimization(self):
+        """Initialize Phase 4 optimization and scaling components"""
+        logger.info("🚀 Initializing Phase 4 Optimization & Scaling...")
+        
+        # Import Phase 4 components
+        from optimization.performance_optimization import PerformanceProfiler, CachingStrategy
+        from optimization.production_readiness import MonitoringSystem
+        
+        # Initialize performance optimization
+        self.performance_profiler = PerformanceProfiler(self.config.get('performance', {}))
+        self.caching_strategy = CachingStrategy(self.config.get('caching', {}))
+        
+        # Initialize production readiness
+        self.monitoring_system = MonitoringSystem(self.config.get('monitoring', {}))
+        
+        # Start monitoring system (run in background)
+        asyncio.create_task(self.monitoring_system.start_monitoring())
+        
+        self.integration_status['phase4_optimization'] = 'active'
+        logger.info("✅ Phase 4 Optimization & Scaling Initialized")
+    
+    async def _initialize_phase5_advanced_applications(self):
+        """Initialize Phase 5 advanced applications"""
+        logger.info("🌟 Initializing Phase 5 Advanced Applications...")
+        
+        # Import Phase 5 components
+        from advanced_applications.intelligent_financial_advisory import IntelligentFinancialAdvisor
+        from advanced_applications.market_analysis_integration import MarketAnalysisEngine
+        
+        # Initialize intelligent financial advisor
+        self.financial_advisor = IntelligentFinancialAdvisor(self.config.get('financial_advisor', {}))
+        
+        # Initialize market analysis engine
+        self.market_analysis_engine = MarketAnalysisEngine(self.config.get('market_analysis', {}))
+        
+        self.integration_status['phase5_advanced_applications'] = 'active'
+        logger.info("✅ Phase 5 Advanced Applications Initialized")
     
     async def _initialize_core_integration_bridges(self):
         """Initialize Phase 2 core integration bridges (preview)"""
